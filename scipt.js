@@ -21,6 +21,7 @@ var choice3 = document.getElementById("button3");
 var choice4 = document.getElementById("button4");
 var questionIndex = 0;
 ​
+
 questionsContainer.style.display = "none";
 initialsContainer.style.display = "none";
 ​
@@ -29,36 +30,28 @@ initialsContainer.style.display = "none";
 //Questions
 var questions = [
     {
-        question: "What is your favorite color?",
-        choices: ["Red", "Blue", "Green"],
-        answer: "Red"
+      question: "1. What does HTML stand for",
+      choices: ["1. Hello Thanks Michelle Love", "2. Hyper Text Markup Language", "3. High Top Moose Limo", "4. Hippo Top Mountain Lion"],
+      answer: "2. Hyper Text Markup Language"
     },
     {
-        question: "What is your favorite color?",
-        choices: ["Red", "Blue", "Green"],
-        answer: "Red"
+      question: "2. What is your favorite color?",
+      choices: ["1. Red","2. Blue","3. Green","4. Yellow"],
+      answer: "1. Red"
     },
     {
-        question: "What is your favorite color?",
-        choices: ["Red", "Blue", "Green"],
-        answer: "Red"
+      question: "3. What is your favorite color?",
+      choices: ["1. Red","2. Blue","3. Green","4. Yellow"],
+      answer: "2. Blue"
     },
     {
-        question: "What is your favorite color?",
-        choices: ["Red", "Blue", "Green"],
-        answer: "Red"
-    },
-    {
-        question: "What is your favorite color?",
-        choices: ["Red", "Blue", "Green"],
-        answer: "Red"
-    },
-    {
-        question: "What is your favorite color?",
-        choices: ["Red", "Blue", "Green"],
-        answer: "Red"
+      question: "4. What does HTML stand for",
+      choices: ["1. Hello Thanks Michelle Love","2. Hyper Text Markup Language","3. High Top Moose Limo","4. Hippo Top Mountain Lion"],
+      answer: "3. High Top Moose Limo"
     }
 ];
+
+
 
 // Function getQuestionsfor Start Quiz Button w Event Listner
 var startQuiz = function(){
