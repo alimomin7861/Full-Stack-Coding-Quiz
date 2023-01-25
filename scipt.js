@@ -20,11 +20,11 @@ var choice2 = document.getElementById("button2");
 var choice3 = document.getElementById("button3");
 var choice4 = document.getElementById("button4");
 var questionIndex = 0;
-​
+
 
 questionsContainer.style.display = "none";
 initialsContainer.style.display = "none";
-​
+
 
 
 //Questions
@@ -53,22 +53,32 @@ var questions = [
 
 
 
-// Function getQuestionsfor Start Quiz Button w Event Listner
+// Function startQuiz for start button Event Listner
 var startQuiz = function(){
-    timerCount = 90;
+    timer();
+    startContainer.style.display = "none";
+    questionsContainer.style.display = "block";
+    nextQuestion();
+  }
+
+
+
+// timer function 
+function timer(){
+    timeEl.textContent = secondsLeft 
+     timerInterval = setInterval(function() {
+        secondsLeft--;
+        timeEl.textContent = secondsLeft 
+
+        if(secondsLeft === 0) {
+          // Stops execution of action at set interval
+          clearInterval(timerInterval);
+          // Calls function to create and append image
+         
+        }
+    
+      }, 1000);
 }
-
-
-
-// The setTimer function starts
-function startTimer() {
-  // Sets timer
-  timer = setInterval(function() {
-    timerCount--;
-    timerEl.textContent = timerCount;
-  }, 1000);
-}
-
 
 
 
