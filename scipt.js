@@ -1,20 +1,19 @@
 // Global variables
-var timerEl = document.getElementById("timer");
-var totalPoints = 0;
-var timer;
-var timerCount;
-
 var timeEl = document.getElementById("time");
+var timerInterval;
+var secondsLeft = 60;
+
 var startContainer = document.getElementById('start');
 var startButton = document.getElementById('start-button');
+
 var questionsContainer = document.getElementById('questions');
-var titleEl = document.getElementById('title');
-var buttonsEl = document.getElementById('buttons');
+var questionTitleEl = document.getElementById('questionTitle');
+
 var initialsContainer = document.getElementById('initials');
 var initalInputEl = document.getElementById('initial-input');
 var submitButton = document.getElementById('submit');
-var timerInterval;
-var secondsLeft = 60;
+
+
 var choice1 = document.getElementById("button1");
 var choice2 = document.getElementById("button2");
 var choice3 = document.getElementById("button3");
@@ -30,24 +29,29 @@ initialsContainer.style.display = "none";
 //Questions
 var questions = [
     {
-      question: "1. What does HTML stand for",
-      choices: ["1. Hello Thanks Michelle Love", "2. Hyper Text Markup Language", "3. High Top Moose Limo", "4. Hippo Top Mountain Lion"],
-      answer: "2. Hyper Text Markup Language"
+      question: "Commonly used data types DO NOT include:",
+      choices: ["1. Strings", "2. Booleans", "3. Alerts", "4. Numbers"],
+      answer: "3. Alerts"
     },
     {
-      question: "2. What is your favorite color?",
-      choices: ["1. Red","2. Blue","3. Green","4. Yellow"],
-      answer: "1. Red"
+      question: "String values must be enclosed within ______ when being assigned to variables.",
+      choices: ["1. Commas","2. Curly Brackets","3. Quotes","4. Parentheses"],
+      answer: "3. Quotes"
     },
     {
-      question: "3. What is your favorite color?",
-      choices: ["1. Red","2. Blue","3. Green","4. Yellow"],
-      answer: "2. Blue"
+      question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+      choices: ["1. Javascript","2. Terminal/Bash","3. For Loops","4. Console.log"],
+      answer: "4. Console.log"
     },
     {
-      question: "4. What does HTML stand for",
-      choices: ["1. Hello Thanks Michelle Love","2. Hyper Text Markup Language","3. High Top Moose Limo","4. Hippo Top Mountain Lion"],
-      answer: "3. High Top Moose Limo"
+      question: "The condition in an if / else statement is enclosed within _______.",
+      choices: ["1. Quotes","2. Curly Brackets","3. Parentheses","4. Square Brackets"],
+      answer: "2. Curly Brackets"
+    },
+    {
+      question: "Arrays in JavaScript can be used to store ____.",
+      choices: ["1. Numbers and Strings","2. Other Arrays","3. Booleans","4. All of the Above"],
+      answer: "4. All of the Above"
     }
 ];
 
@@ -59,11 +63,11 @@ var startQuiz = function(){
     startContainer.style.display = "none";
     questionsContainer.style.display = "block";
     nextQuestion();
-  }
+}
 
 
 
-// timer function 
+// Timer function 
 function timer(){
     timeEl.textContent = secondsLeft 
      timerInterval = setInterval(function() {
@@ -116,33 +120,33 @@ var chose1 = function(){
     checkAnswer(0);
 }
 var chose2 = function(){
-      checkAnswer(1);
-    }
-    var chose3 = function(){
-      checkAnswer(2);
-    }
-    var chose4 = function(){
-      checkAnswer(3);
-    }
+    checkAnswer(1);
+}
+var chose3 = function(){
+    checkAnswer(2);
+}
+var chose4 = function(){
+    checkAnswer(3);
+}
     
-    function gameOver() {
-      initialsContainer.style.display = "block";
-      questionsContainer.style.display = "none";
-      startContainer.style.display = "none";
-      timeEl.style.display = "none";
+function gameOver() {
+    initialsContainer.style.display = "block";
+    questionsContainer.style.display = "none";
+    startContainer.style.display = "none";
+    timeEl.style.display = "none";
     
-      // show final score
-      finalScore.textContent = secondsLeft;
-    }
-    
-    
+    // show final score
+    finalScore.textContent = secondsLeft;
+}
     
     
     
     
-    startButton.addEventListener('click', startQuiz)
-    choice1.addEventListener("click", chose1);
-    choice2.addEventListener("click", chose2);
-    choice3.addEventListener("click", chose3);
-    choice4.addEventListener("click", chose4);
+    
+//All Event Listeners for Buttons
+startButton.addEventListener('click', startQuiz)
+choice1.addEventListener("click", chose1);
+choice2.addEventListener("click", chose2);
+choice3.addEventListener("click", chose3);
+choice4.addEventListener("click", chose4);
 
