@@ -59,8 +59,6 @@ var questions = [
     }
 ];
 
-console.log(questions[questionIndex].question);
-
 // Timer function 
 function timer(){
     timeEl.textContent = secondsLeft 
@@ -84,18 +82,35 @@ var startQuiz = function(){
     nextQuestion();
 }
 
+var choicesEl = document.getElementById("choicesContainer");
 
 // create an event listener for the button click
 var nextQuestion = function(){
     questionTitleEl.textContent = questions[questionIndex].question;
-    choice1.textContent = questions[questionIndex].choices[0];
-    choice2.textContent = questions[questionIndex].choices[1];
-    choice3.textContent = questions[questionIndex].choices[2];
-    choice4.textContent = questions[questionIndex].choices[3];
+    for (let i = 0; i < questions[questionIndex].choices.length; i++) {
+        const choice = questions[questionIndex].choices[i];
+        var btnEl = document.createElement("button");
+        btnEl.setAttribute('class', "choice");
+        btnEl.setAttribute('value', choice);
+        btnEl.textContent = choice 
+        choicesEl.appendChild(btnEl)
+    }
+
+
+//     choice1.textContent = questions[questionIndex].choices[0];
+//     choice2.textContent = questions[questionIndex].choices[1];
+//     choice3.textContent = questions[questionIndex].choices[2];
+//     choice4.textContent = questions[questionIndex].choices[3];
+// 
+
 }
 
-function checkAnswer(answer) {
-    
+function checkAnswer(event) {
+    var btnClick = event.target
+    if (!btnClick.matches("choice")){
+        return
+    }
+
     if (questions[questionIndex].answer === questions[questionIndex].choices[answer]) {
         // correct answer -> time stays the same
         timeEl.textContent = secondsLeft;
@@ -104,30 +119,34 @@ function checkAnswer(answer) {
         secondsLeft -= 10;
         timeEl.textContent = secondsLeft;
     }
-    
+
     questionIndex++;
+    console.log(questionIndex);
+
+    
     // repeat with the rest of questions 
-    if (questionIndex < questions.length) {
-        nextQuestion();
-    } else {
-        // if no more question, run game over function
+    if (questionIndex === questions.length || secondsLeft <= 0) {
+        console.log(questionIndex);
+        // if no more question, run endGame function
         endGame();
+    } else {
+        nextQuestion();
     }
 }
     
     
-var chose1 = function(){
-    checkAnswer(0);
-}
-var chose2 = function(){
-    checkAnswer(1);
-}
-var chose3 = function(){
-    checkAnswer(2);
-}
-var chose4 = function(){
-    checkAnswer(3);
-}
+// var chose1 = function(){
+//     checkAnswer(0);
+// }
+// var chose2 = function(){
+//     checkAnswer(1);
+// }
+// var chose3 = function(){
+//     checkAnswer(2);
+// }
+// var chose4 = function(){
+//     checkAnswer(3);
+// }
     
 function endGame() {
     initialsContainer.style.display = "block";
@@ -147,20 +166,23 @@ function endGame() {
 
 //Start Page Buttons
 startButton.addEventListener('click', startQuiz)
-viewHighscore.addEventListener('click',______)
+// viewHighscore.addEventListener('click',______)
 
 //Quiz Page Buttons
-choice1.addEventListener("click", chose1);
-choice2.addEventListener("click", chose2);
-choice3.addEventListener("click", chose3);
-choice4.addEventListener("click", chose4);
+// choice1.addEventListener("click", chose1);
+// choice2.addEventListener("click", chose2);
+// choice3.addEventListener("click", chose3);
+// choice4.addEventListener("click", chose4);
+choicesEl.onclick = checkAnswer;
+
+
 
 //Submit Score Page Button
-submitButton.addEventListener('click',_____)
+//submitButton.addEventListener('click',_____)
 
 //Highscores Page Button
-goBackButton.addEventListener('click',______)
-clearHighscoresButton.addEventListener('click',______)
+//goBackButton.addEventListener('click',______)
+//clearHighscoresButton.addEventListener('click',______)
 
 
 
