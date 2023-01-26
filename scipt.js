@@ -80,13 +80,69 @@ function timer(){
       }, 1000);
 }
 
+// create an event listener for the button click
+var nextQuestion = function(){
+    titleEl.textContent = questions[questionIndex].question;
+    choice1.textContent = questions[questionIndex].choices[0];
+    choice2.textContent = questions[questionIndex].choices[1];
+    choice3.textContent = questions[questionIndex].choices[2];
+    choice4.textContent = questions[questionIndex].choices[3];
+}
 
+function checkAnswer(answer) {
+    
+    if (questions[questionIndex].answer === questions[questionIndex].choices[answer]) {
+        // correct answer, add 1 score to final score
+        secondsLeft += 10;
+        timeEl.textContent = secondsLeft;
+    } else {
+        // wrong answer, deduct 10 second from timer
+        secondsLeft -= 10;
+        timeEl.textContent = secondsLeft;
+    }
+    
+    questionIndex++;
+    // repeat with the rest of questions 
+    if (questionIndex < questions.length) {
+        nextQuestion();
+    } else {
+        // if no more question, run game over function
+        gameOver();
+    }
+}
+    
+    
+var chose1 = function(){
+    checkAnswer(0);
+}
+var chose2 = function(){
+      checkAnswer(1);
+    }
+    var chose3 = function(){
+      checkAnswer(2);
+    }
+    var chose4 = function(){
+      checkAnswer(3);
+    }
+    
+    function gameOver() {
+      initialsContainer.style.display = "block";
+      questionsContainer.style.display = "none";
+      startContainer.style.display = "none";
+      timeEl.style.display = "none";
+    
+      // show final score
+      finalScore.textContent = secondsLeft;
+    }
+    
+    
+    
+    
+    
+    
+    startButton.addEventListener('click', startQuiz)
+    choice1.addEventListener("click", chose1);
+    choice2.addEventListener("click", chose2);
+    choice3.addEventListener("click", chose3);
+    choice4.addEventListener("click", chose4);
 
-
-
-
-// Send eventlistner to first function
-// hide intro(setAttribute), unhide questions (removeAttribute method)
-    //function within function 1
-    //Show array of choices with for loop 
-    //
