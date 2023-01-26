@@ -19,6 +19,7 @@ var choice3 = document.getElementById("button3");
 var choice4 = document.getElementById("button4");
 var questionIndex = 0;
 
+var highscoresContainer = document.getElementById("highscores")
 var viewHighscores = document.getElementById("viewHighscores");
 var goBackButton = document.getElementById("goBackButton")
 var clearHighscoresButton = document.getElementById("clearHighscoresButton")
@@ -57,18 +58,6 @@ var questions = [
     }
 ];
 
-
-
-// Function startQuiz for start button Event Listner
-var startQuiz = function(){
-    timer();
-    startContainer.style.display = "none";
-    questionsContainer.style.display = "block";
-    nextQuestion();
-}
-
-
-
 // Timer function 
 function timer(){
     timeEl.textContent = secondsLeft 
@@ -79,13 +68,19 @@ function timer(){
         if(secondsLeft === 0) {
           // Stops execution of action at set interval
           clearInterval(timerInterval);
-          // Calls function to create and append image
-         
         }
     
       }, 1000);
 }
 
+// Function startQuiz for start button Event Listner
+var startQuiz = function(){
+    timer();
+    startContainer.style.display = "none";
+    questionsContainer.style.display = "block";
+    highscoresContainer.style.display = "none";
+    nextQuestion();
+}
 // create an event listener for the button click
 var nextQuestion = function(){
     titleEl.textContent = questions[questionIndex].question;
@@ -98,11 +93,10 @@ var nextQuestion = function(){
 function checkAnswer(answer) {
     
     if (questions[questionIndex].answer === questions[questionIndex].choices[answer]) {
-        // correct answer, add 1 score to final score
-        secondsLeft += 10;
+        // correct answer -> time stays the same
         timeEl.textContent = secondsLeft;
     } else {
-        // wrong answer, deduct 10 second from timer
+        // wrong answer -> minus 10 seconds from timer
         secondsLeft -= 10;
         timeEl.textContent = secondsLeft;
     }
