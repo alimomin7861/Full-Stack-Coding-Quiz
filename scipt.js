@@ -6,7 +6,7 @@ var secondsLeft = 60;
 var startContainer = document.getElementById('start');
 var startButton = document.getElementById('start-button');
 
-var questionsContainer = document.getElementById('questionsContainer');
+var questionsContainer = document.getElementById('questions');
 var questionTitleEl = document.getElementById('questionTitle');
 
 var initialsContainer = document.getElementById('initials');
@@ -26,6 +26,7 @@ var clearHighscoresButton = document.getElementById("clearHighscoresButton")
 
 questionsContainer.style.display = "none";
 initialsContainer.style.display = "none";
+highscoresContainer.style.display = "none";
 
 
 
@@ -58,6 +59,8 @@ var questions = [
     }
 ];
 
+console.log(questions[questionIndex].question);
+
 // Timer function 
 function timer(){
     timeEl.textContent = secondsLeft 
@@ -78,12 +81,13 @@ var startQuiz = function(){
     timer();
     startContainer.style.display = "none";
     questionsContainer.style.display = "block";
-    highscoresContainer.style.display = "none";
     nextQuestion();
 }
+
+
 // create an event listener for the button click
 var nextQuestion = function(){
-    titleEl.textContent = questions[questionIndex].question;
+    questionTitleEl.textContent = questions[questionIndex].question;
     choice1.textContent = questions[questionIndex].choices[0];
     choice2.textContent = questions[questionIndex].choices[1];
     choice3.textContent = questions[questionIndex].choices[2];
