@@ -24,6 +24,7 @@ var highscoresContainer = document.getElementById("highscores")
 var viewHighscores = document.getElementById("viewHighscores");
 var goBackButton = document.getElementById("goBackButton")
 var clearHighscoresButton = document.getElementById("clearHighscoresButton")
+var allScoresList = document.getElementById("allScoresList");
 
 questionsContainer.style.display = "none";
 initialsContainer.style.display = "none";
@@ -153,8 +154,8 @@ function storeScore (event){
     var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
     //create object to hold user scores & initials
     var newScore = {
-        scores: score,
-        initials: initials,
+        scores: secondsLeft,
+        initials: initalInputEl.value,
     };
     //push 
     highscores.push(newScore);
@@ -166,13 +167,22 @@ function storeScore (event){
     displayHighscores();
 }
 
-//displayHighscores function to show
+//displayHighscores function to show highscores
 function displayHighscores (){
     startContainer.style.display = "none";
     timerEl.style.display = "none";
     questionsContainer.style.display = "none";
     initialsContainer.style.display = "none";
     highscoresContainer.style.display = "block";
+
+    var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+
+    for (; i < highscores.length; i++) {
+        var eachNewHighScore = document.createElement("li");
+        eachNewHighScore.innerHTML = highscores[i].initials + ": " + storedHighScores[i].scores;
+        allScoresList.appendChild(eachNewHighScore);
+    }
+
 
 
 }
@@ -198,12 +208,14 @@ submitButton.addEventListener('click',function(event){
     storeScore(event);
 });
 
-//Highscores Page Button
+//Highscores Page Buttons
 goBackButton.addEventListener('click',function(){
-    highscoresContainer.style.display = "nonegit";
+    highscoresContainer.style.display = "none";
     startContainer.style.display = "block";
+    viewHighscores.style.display = "block";
 });
-//clearHighscoresButton.addEventListener('click',______)
+
+clearHighscoresButton.addEventListener('click',______)
 
 
 
