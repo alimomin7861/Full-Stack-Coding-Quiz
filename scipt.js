@@ -2,7 +2,7 @@
 var timerEl = document.getElementById("timer");
 var timeEl = document.getElementById("time");
 var timerInterval;
-var secondsLeft = 60;
+var secondsLeft = 0;
 
 var startContainer = document.getElementById('start');
 var startButton = document.getElementById('start-button');
@@ -69,9 +69,10 @@ function timer(){
         secondsLeft--;
         timeEl.textContent = secondsLeft 
 
-        if(secondsLeft === 0) {
+        if(secondsLeft <= 0) {
           // Stops execution of action at set interval
           clearInterval(timerInterval);
+          endQuiz();
         }
     
       }, 1000);
@@ -79,6 +80,7 @@ function timer(){
 
 // Function startQuiz for start button Event Listner
 var startQuiz = function(){
+    secondsLeft = 60;
     timer();
     startContainer.style.display = "none";
     viewHighscores.style.display = "none";
@@ -137,8 +139,9 @@ function endQuiz() {
     startContainer.style.display = "none";
     timerEl.style.display = "none";
     
-    // show final score
+    //show score
     score.textContent = secondsLeft;
+    clearInterval(timerInterval);
 }
 
 //storeScore function to put score into local storage
@@ -154,7 +157,7 @@ function storeScore (event){
     var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
     //create object to hold user scores & initials
     var newScore = {
-        scores: secondsLeft,
+        scores: score,
         initials: initalInputEl.value,
     };
     //push 
@@ -177,19 +180,17 @@ function displayHighscores (){
 
     var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
 
-    for (; i < highscores.length; i++) {
+    for (var i = 0; i < highscores.length; i++) {
         var eachNewHighScore = document.createElement("li");
-        eachNewHighScore.innerHTML = highscores[i].initials + ": " + storedHighScores[i].scores;
+        eachNewHighScore.innerHTML = highscores[i].initials + ": " + highscores[i].scores;
         allScoresList.appendChild(eachNewHighScore);
     }
-
-
-
 }
-    
-    
-    
-    
+
+
+
+
+
 //All Event Listeners for Buttons
 
 //Start Page Buttons
@@ -213,9 +214,13 @@ goBackButton.addEventListener('click',function(){
     highscoresContainer.style.display = "none";
     startContainer.style.display = "block";
     viewHighscores.style.display = "block";
+    location.reload();
 });
 
-clearHighscoresButton.addEventListener('click',______)
+clearHighscoresButton.addEventListener('click',function(){
+    window.localStorage.removeItem("highscores");
+    allScoresList.innerHTML = "";
+});
 
 
 
