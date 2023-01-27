@@ -194,7 +194,7 @@ choice4.addEventListener("click", chose4);
 
 
 //Submit Score Page Button
-//submitButton.addEventListener('click',_____)
+submitButton.addEventListener('click',storeScore())
 
 //Highscores Page Button
 //goBackButton.addEventListener('click',______)
