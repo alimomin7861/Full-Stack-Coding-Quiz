@@ -2,7 +2,7 @@
 var timerEl = document.getElementById("timer");
 var timeEl = document.getElementById("time");
 var timerInterval;
-var secondsLeft = 60;
+var secondsLeft = 45;
 
 var startContainer = document.getElementById('start');
 var startButton = document.getElementById('start-button');
@@ -107,7 +107,7 @@ function checkAnswer(answer) {
     }
     questionIndex++;
     // repeat with the rest of questions 
-    if (questionIndex === questions.length || secondsLeft === 0) {
+    if (questionIndex === questions.length ) {  // || secondsLeft === 0)
         // if there are no more questions or if the time runs out, end Quiz
         endQuiz();
     } else {
@@ -143,7 +143,23 @@ function endQuiz() {
 //storeScore function to put score into local storage
 function storeScore (event){
     event.preventDefault();
-
+    //store user initials input to variable initials
+    var initials = initalInputEl.value;
+    //store user score (secondsLeft) to variable score
+    var score = secondsLeft;
+    //create array to hold highscores
+    var scoresArray;
+    //create highscores array, but if it already exists within our local storage we will simply set the variable to it
+    var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+    //create object to hold user scores & initials
+    var newScore = {
+        scores: score,
+        initials: initials,
+    };
+    //push 
+    highscores.push(newScore);
+    //set new array to local storage
+    window.localStorage.setItem("highscores", JSON.stringify(highscores));
 
 
     //Go to current highscores once initials are submitted
@@ -168,7 +184,7 @@ function displayHighscores (){
 
 //Start Page Buttons
 startButton.addEventListener('click', startQuiz)
-viewHighscore.addEventListener('click', displayHighscores)
+viewHighscores.addEventListener('click', displayHighscores)
 
 //Quiz Page Buttons
 choice1.addEventListener("click", chose1);
