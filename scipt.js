@@ -1,4 +1,5 @@
 // Global variables
+var timerEl = document.getElementById("timer");
 var timeEl = document.getElementById("time");
 var timerInterval;
 var secondsLeft = 60;
@@ -27,33 +28,34 @@ var clearHighscoresButton = document.getElementById("clearHighscoresButton")
 questionsContainer.style.display = "none";
 initialsContainer.style.display = "none";
 highscoresContainer.style.display = "none";
+timerEl.style.display = "none";
 
 
 
 //Questions
 var questions = [
     {
-      question: "1. Commonly used data types DO NOT include:",
+      question: "Commonly used data types DO NOT include:",
       choices: ["1. Strings", "2. Booleans", "3. Alerts", "4. Numbers"],
       answer: "3. Alerts"
     },
     {
-      question: "2. String values must be enclosed within ______ when being assigned to variables.",
+      question: "String values must be enclosed within ______ when being assigned to variables.",
       choices: ["1. Commas","2. Curly Brackets","3. Quotes","4. Parentheses"],
       answer: "3. Quotes"
     },
     {
-      question: "3. A very useful tool used during development and debugging for printing content to the debugger is:",
+      question: "A very useful tool used during development and debugging for printing content to the debugger is:",
       choices: ["1. Javascript","2. Terminal/Bash","3. For Loops","4. Console.log"],
       answer: "4. Console.log"
     },
     {
-      question: "4. The condition in an if / else statement is enclosed within _______.",
+      question: "The condition in an if / else statement is enclosed within _______.",
       choices: ["1. Quotes","2. Curly Brackets","3. Parentheses","4. Square Brackets"],
       answer: "2. Curly Brackets"
     },
     {
-      question: "5. Arrays in JavaScript can be used to store ____.",
+      question: "Arrays in JavaScript can be used to store ____.",
       choices: ["1. Numbers and Strings","2. Other Arrays","3. Booleans","4. All of the Above"],
       answer: "4. All of the Above"
     }
@@ -78,86 +80,86 @@ function timer(){
 var startQuiz = function(){
     timer();
     startContainer.style.display = "none";
+    viewHighscores.style.display = "none";
+    timerEl.style.display = "block";
     questionsContainer.style.display = "block";
     nextQuestion();
 }
 
-var choicesEl = document.getElementById("choicesContainer");
 
-// create an event listener for the button click
 var nextQuestion = function(){
     questionTitleEl.textContent = questions[questionIndex].question;
-    for (let i = 0; i < questions[questionIndex].choices.length; i++) {
-        const choice = questions[questionIndex].choices[i];
-        var btnEl = document.createElement("button");
-        btnEl.setAttribute('class', "choice");
-        btnEl.setAttribute('value', choice);
-        btnEl.textContent = choice 
-        choicesEl.appendChild(btnEl)
-    }
-
-
-//     choice1.textContent = questions[questionIndex].choices[0];
-//     choice2.textContent = questions[questionIndex].choices[1];
-//     choice3.textContent = questions[questionIndex].choices[2];
-//     choice4.textContent = questions[questionIndex].choices[3];
-// 
+    choice1.textContent = questions[questionIndex].choices[0];
+    choice2.textContent = questions[questionIndex].choices[1];
+    choice3.textContent = questions[questionIndex].choices[2];
+    choice4.textContent = questions[questionIndex].choices[3];
 
 }
-
-function checkAnswer(event) {
-    var btnClick = event.target
-    if (!btnClick.matches("choice")){
-        return
-    }
-
+    
+function checkAnswer(answer) {
     if (questions[questionIndex].answer === questions[questionIndex].choices[answer]) {
-        // correct answer -> time stays the same
+        // correct answer -> nothing happens to timer
         timeEl.textContent = secondsLeft;
     } else {
-        // wrong answer -> minus 10 seconds from timer
+        // wrong answer -> deduct 10 seconds from timer
         secondsLeft -= 10;
         timeEl.textContent = secondsLeft;
     }
-
     questionIndex++;
-    console.log(questionIndex);
-
-    
     // repeat with the rest of questions 
-    if (questionIndex === questions.length || secondsLeft <= 0) {
-        console.log(questionIndex);
-        // if no more question, run endGame function
-        endGame();
+    if (questionIndex === questions.length || secondsLeft === 0) {
+        // if there are no more questions or if the time runs out, end Quiz
+        endQuiz();
     } else {
+        // otherwise go to the next function
         nextQuestion();
     }
 }
     
-    
-// var chose1 = function(){
-//     checkAnswer(0);
-// }
-// var chose2 = function(){
-//     checkAnswer(1);
-// }
-// var chose3 = function(){
-//     checkAnswer(2);
-// }
-// var chose4 = function(){
-//     checkAnswer(3);
-// }
-    
-function endGame() {
+var chose1 = function(){
+    checkAnswer(0);
+}
+var chose2 = function(){
+    checkAnswer(1);
+}
+var chose3 = function(){
+    checkAnswer(2);
+}
+var chose4 = function(){
+    checkAnswer(3);
+}
+
+
+function endQuiz() {
     initialsContainer.style.display = "block";
     questionsContainer.style.display = "none";
     startContainer.style.display = "none";
-    timeEl.style.display = "none";
+    timerEl.style.display = "none";
     
     // show final score
     score.textContent = secondsLeft;
 }
-    
+
+//storeScore function to put score into local storage
+function storeScore (event){
+    event.preventDefault();
+
+
+
+    //Go to current highscores once initials are submitted
+    displayHighscores();
+}
+
+//displayHighscores function to show
+function displayHighscores (){
+    startContainer.style.display = "none";
+    timerEl.style.display = "none";
+    questionsContainer.style.display = "none";
+    initialsContainer.style.display = "none";
+    highscoresContainer.style.display = "block";
+
+
+}
     
     
     
@@ -166,15 +168,13 @@ function endGame() {
 
 //Start Page Buttons
 startButton.addEventListener('click', startQuiz)
-// viewHighscore.addEventListener('click',______)
+viewHighscore.addEventListener('click', displayHighscores)
 
 //Quiz Page Buttons
-// choice1.addEventListener("click", chose1);
-// choice2.addEventListener("click", chose2);
-// choice3.addEventListener("click", chose3);
-// choice4.addEventListener("click", chose4);
-choicesEl.onclick = checkAnswer;
-
+choice1.addEventListener("click", chose1);
+choice2.addEventListener("click", chose2);
+choice3.addEventListener("click", chose3);
+choice4.addEventListener("click", chose4);
 
 
 //Submit Score Page Button
