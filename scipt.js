@@ -2,7 +2,7 @@
 var timerEl = document.getElementById("timer");
 var timeEl = document.getElementById("time");
 var timerInterval;
-var secondsLeft = 45;
+var secondsLeft = 60;
 
 var startContainer = document.getElementById('start');
 var startButton = document.getElementById('start-button');
@@ -194,10 +194,15 @@ choice4.addEventListener("click", chose4);
 
 
 //Submit Score Page Button
-submitButton.addEventListener('click',storeScore())
+submitButton.addEventListener('click',function(event){ 
+    storeScore(event);
+});
 
 //Highscores Page Button
-//goBackButton.addEventListener('click',______)
+goBackButton.addEventListener('click',function(){
+    highscoresContainer.style.display = "nonegit";
+    startContainer.style.display = "block";
+});
 //clearHighscoresButton.addEventListener('click',______)
 
 
